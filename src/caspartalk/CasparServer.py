@@ -4,8 +4,9 @@ import ResponseInterpreter
 from enum import Enum
 
 
-class CasparServer:
+class CasparServer(object):
     """
+    :type parent: object
     :param str server_ip: The IP address of the CasparCG server that we want to communicate with.
     :param int port: The port that the CasparCG server at *server_ip* is listening for AMCP commands on.
 
@@ -192,7 +193,7 @@ vcodec = Enum('libx264', 'qtrle')
 tcp_protocol = Enum('AMCP', 'LOG')
 
 
-class ServerConfig:
+class ServerConfig(object):
     def __init__(self):
         # This is set up with the default values from the config.
         # Upon initialization, we'll populate these with any values that have been manually overridden.
@@ -244,7 +245,7 @@ class ServerConfig:
         self.audio_configs = AudioConfig(True)
 
 
-class Channel:
+class Channel(object):
     def __init__(self, ch_video_mode=video_mode.vm_PAL, ch_channel_layout=channel_layout.stereo,
                  ch_straight_alpha_output=False,
                  ch_consumers=[]):
@@ -272,7 +273,7 @@ class Channel:
         # </channel>
 
 
-class Consumer:
+class Consumer(object):
     def __init__(self):
         pass
 
@@ -359,7 +360,7 @@ class ConsumerStream(Consumer):
         # </stream>
 
 
-class TemplateHost:
+class TemplateHost(object):
     def __init__(self, th_video_mode=None, th_filename=None, th_width=None, th_height=None):
         # <template-hosts>
         #    <template-host>
@@ -375,7 +376,7 @@ class TemplateHost:
         self.height = th_height | 0
 
 
-class OSC:
+class OSC(object):
     def __init__(self, default_port=None):
         self.default_port = 6250
         self.predefined_clients = []
@@ -387,7 +388,7 @@ class OSC:
             raise TypeError("Expected int for default_port, got {wrong_t}".format(wrong_t=type(default_port)))
 
 
-class OSCPredefinedClient:
+class OSCPredefinedClient(object):
     def __init__(self, address="localhost", port=5253):
         self.address = self.port = None
 
@@ -402,7 +403,7 @@ class OSCPredefinedClient:
             raise TypeError("Expected int for port, got {wrong_t}".format(wrong_t=type(port)))
 
 
-class TCPController:
+class TCPController(object):
     def __init__(self, protocol, port=5250):
         self.protocol = protocol
 
@@ -412,7 +413,7 @@ class TCPController:
             raise TypeError("Expected int for port, got {wrong_t}".format(wrong_t=type(port)))
 
 
-class AudioConfig:
+class AudioConfig(object):
     def __init__(self, use_default=True):
         self.channel_layouts = {}
         self.mix_configs = []
@@ -476,7 +477,7 @@ class AudioConfig:
                                 ]
 
 
-class AudioChannelLayout:
+class AudioChannelLayout(object):
     def __init__(self, name, type_, num_channels, channels=""):
         # <channel-layout>
         self.name = name  # <name>mono</name>
@@ -486,7 +487,7 @@ class AudioChannelLayout:
         # </channel-layout>
 
 
-class AudioMixConfig:
+class AudioMixConfig(object):
     def __init__(self, from_, to, mix, mappings):
         self.from_ = from_
         self.to = to
